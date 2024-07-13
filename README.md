@@ -10,7 +10,7 @@ The **Distributed Message Queue** can be divided into multiple components:
 6. Manager Replica
 
 ## Architecture
-![Alt text](./architecture.jpg?raw=true "Distributed Message Queue System Design")
+![Alt text](./architecture.png?raw=true "Distributed Message Queue System Design")
 
 ## HTTP Server
 
