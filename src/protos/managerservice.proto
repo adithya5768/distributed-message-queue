@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package managerservice;
+
+service ManagerService{
+
+ rpc RegisterBroker(BrokerDetails) returns (Status) {}
+ rpc HealthCheck(HeartBeat) returns (HeartBeat) {}
+ rpc RegisterReplica(ReplicaDetails) returns (Response) {}
+ rpc PushUpdates(stream Query) returns (Response) {}
+ rpc SendTransaction(Transaction) returns (TransactionResponse) {}
+}
+
+message BrokerDetails{
+ string host = 1;
+ string port = 2;
+ string token = 3;  // authentication
+ string raft_port = 4;
+}
+
+message Query{
+    string query = 1;
+}
+
+message ReplicaDetails{
+    string token = 1;
+}
+
+message Status{
+ bool status = 1;
+}
+
+message Transaction{
+ bytes data = 1;  // dict transaction: 
+                  // {'req': 'Enqueue', 'pid': 12, 'topic': 'foo', 'partition': 'B', 'message': 'test'}
+}
+
+message TransactionResponse{
+ bytes data = 1;  // dict response
+}
+
+message Request{}
+message Response{
+ bool status = 1;
+ int32 replicaId = 2;
+}
+message HeartBeat{
+ int32 broker_id = 1;
+}

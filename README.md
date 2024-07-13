@@ -1,5 +1,5 @@
 # Distributed Message Queue
-This repository contains an implementation of a Distributed Message Queue (Ubuntu/Linux) done as part of the Distributed Systems course at IIT Kharagpur.
+This repository contains an implementation of a Distributed Message Queue (Ubuntu/Linux).
 
 The **Distributed Message Queue** can be divided into multiple components:
 1. HTTP Server
@@ -9,11 +9,12 @@ The **Distributed Message Queue** can be divided into multiple components:
 5. Broker
 6. Manager Replica
 
+## Architecture
+![Alt text](./architecture.jpg?raw=true "Distributed Message Queue System Design")
+
 ## HTTP Server
 
-The HTTP server API is written in python using Flask.\
-Server address: http://127.0.0.1:8001 \
-Following are the API endpoints made available:
+The HTTP server API is written in python using Flask. Following are the API endpoints made available:
 * /topics
   - GET
   - Returns a list of topics available
@@ -111,7 +112,7 @@ Manager Replica has the following functionalities:
 1. This design follows Client-Server architecture but can be done in Microservices architecture to further improve the scalability.
 2. All communications between HTTP Server, Manager, Replica and Brokers happen through gRPC.
 3. Database:
-    - Porgres is used for the main database and the Health Check database.
+    - Postgres is used for the main database and the Health Check database.
     - A simple database schema is used consisting of Producer, Consumer, Message and other tables.
 4. Topic Partitions:
     - Each topic is further divided into partitions and producers/consumers can perform tasks on individual partitions.
@@ -125,8 +126,8 @@ Manager Replica has the following functionalities:
 6. All HTTP Server API responses are in JSON format and loosely follow REST principles.
 7. PORTS Used:
     - HTTP Server - 8001
-    - Manager - 50051
-    - Replica - 50053
+    - Manager gRPC - 50051
+    - Replica gRPC- 50053
     - Brokers (as required, one port for gRPC and one for RAFT)
         - Broker 1 - 50052 8003
         - Broker 2 - 50054 8004

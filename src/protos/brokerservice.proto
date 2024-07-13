@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package brokerservice;
+
+service BrokerService{
+
+ rpc SendTransaction(Transaction) returns (Response) {}
+ rpc GetUpdates(Request) returns (stream Query) {}
+ rpc ResetBroker(BrokerDetails) returns (Status) {}
+
+}
+
+message Response{
+ bytes data = 1;  // dict response
+}
+
+message Transaction{
+ bytes data = 1;  // dict transaction: 
+                  // {'req': 'Enqueue', 'pid': 12, 'topic': 'foo', 'partition': 'B', 'message': 'test'}
+}
+
+message Request{
+ string topic = 1;
+ string partition = 2;
+}
+message Status{}
+
+message Query{
+ string query = 1;
+}
+
+message BrokerDetails{
+ int32 brokerId = 1;
+}
